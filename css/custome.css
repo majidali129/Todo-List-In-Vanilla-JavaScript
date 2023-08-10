@@ -1,0 +1,60 @@
+/* .main-wrapper{
+    overflow-y: scroll;
+} */
+.main-wrapper::-webkit-scrollbar{
+    width: 4px;
+}
+.main-wrapper::-webkit-scrollbar-track{
+    background: #141e33;
+}
+.main-wrapper::-webkit-scrollbar-thumb{
+    background-color: #5b21b6;
+    border-radius: 5px;
+    height: 10px;
+    cursor: pointer;
+}
+
+.primary-btn{
+    display: block;
+    outline: none;
+    border: none;
+    background-color: #5b21b6;
+    color: #fff;
+    padding: 0.5em 1.5em ;
+    letter-spacing:0.03em;
+}
+.action-btn{
+    transition: all 0.3s ease-in-out ;
+}
+
+
+.error-message{
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 0.5s ease-in-out;
+}
+.error-message:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.bi{
+    color: #ffffff;
+    opacity: 0.5;
+}
+.bi:hover{
+    opacity: 1;
+    transform: scale(1.2);
+    /* color: yellow; */
+    color: #620bed;
+}
+
+.hide{
+    left: -200%;
+    transition: all 0.5s ease-in-out;
+}
+.show{
+    left: 0%;
+    transition: all 0.5s ease-in-out;
+}

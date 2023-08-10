@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/uuid@8/dist/umd-browser/index.min.js"></script> -->
+
+    <link rel="stylesheet" href="/css/custome.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Task Management System</title>
+  </head>
+  <!-- #0f172a main-section -->
+  <!-- #141e33 sidebar -->
+  <!-- #5b21b6 button-main-color      #6b37bd hover-color     -->
+  <!-- #a7f3d0 completeBtn -->
+  <!-- #fde68a pendingBtn -->
+  <body>
+    <section
+      class="w-full h-[100vh] overflow-y-scroll main-wrapper z-10 bg-[#0f172a]"
+    >
+      <!-- Left Sidebar -->
+      <aside
+        class=" min-h-screen lg:w-2/12 h-[100%] fixed left-[-200%] lg:left-0 top-0 bg-[#141e33] py-6 z-10"
+        id="menu_bar"
+      >
+        <div class="flex flex-col px-2 py-4 gap-4 lg:px-4  h-[100%]">
+          <h1
+            class="main-heading sm:text-md lg:text-2xl font-semibold text-center text-[#fff] opacity-50 hidden lg:block"
+          >
+            TO-DO-LIST
+          </h1>
+
+          <button
+            class="primary-btn rounded-md text-sm text-center bg-[#5b21b6] hover:bg-[#6b37bd] active:bg-[#a7f3d0]"
+            id="add_new_task_btn"
+            onclick="showFormHandler()"
+          >
+            Add New Task
+          </button>
+          <ul class="flex flex-col justify-center items-start gap-2 w-[100%]">
+            <button
+              class="action-btn bg-transparent hover:bg-[#272e3f] text-[#fff] opacity-50 hover:opacity-100 w-full text-left py-2 px-2 rounded-sm"
+            >
+              All Tasks
+            </button>
+            <button
+              class="action-btn bg-transparent hover:bg-[#272e3f] text-[#fff] opacity-50 hover:opacity-100 w-full text-left py-2 px-2 rounded-sm"
+            >
+              Completed Tasks
+            </button>
+            <button
+              class="action-btn bg-transparent hover:bg-[#272e3f] text-[#fff] opacity-50 hover:opacity-100 w-full text-left py-2 px-2 rounded-sm"
+            >
+              Uncompleted Tasks
+            </button>
+          </ul>
+        </div>
+      </aside>
+
+      <!--  Center section  -->
+      <section
+        class="main-wrapper center sm:w-full lg:w-8/12 h-auto md:h-full py-1 px-4 mx-auto flex flex-col gap-2 z-0"
+      >
+        <header
+          class="flex md:flex-row items-center justify-between py-4 px-0 md:px-6"
+        >
+
+          <div class="hidden md:block">
+            <h1 id="date" class="text-lg md:text-2xl text-[#fff] opacity-50">
+              
+            </h1>
+          </div>
+          <h2 class="text-lg font-bold tracking-wide block lg:hidden text-[#fff] opacity-70">To-Do-List</h2>
+          <!-- Header actions -->
+          <div class="actions flex items-center gap-x-4">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-bell-fill text-[#620bed]"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"
+                />
+              </svg>
+            </span>
+            <button
+              class="primary-btn rounded-md text-center bg-[#5b21b6] hover:bg-[#6b37bd] active:bg-[#a7f3d0] active:text-[#0f172a] block"
+              id="add_new_task_btn"
+              onclick="showFormHandler()"
+            >
+              Add New Task
+            </button>
+            <img
+              src="/asset/profile.png"
+              width="30px"
+              alt=""
+              class="hidden sm:block"
+            />
+          </div>
+        </header>
+
+        <!-- search field for small devices -->
+        <div
+          class="flex search-box group md:hidden gap-4 items-center bg-[#141e33] py-2 px-2 rounded-md hover:outline hover:outline-inset-1 hover:outline-[#5b21b6] transition-all ease-in-out duration-500"
+        >
+          <input
+            type="text"
+            name=""
+            id=""
+            class="outline-none border-none bg-transparent text-white px-2 w-full"
+          />
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-search text-white"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </span>
+        </div>
+
+        <hr
+          class="border-1 text-[#fff] border-dashed opacity-50 hidden md:block"
+        />
+
+        <main class="w-full py-4 px-6 flex flex-col gap-y-8">
+          <h1
+            class="text-lg md:text-2xl text-[#fff] font-semibold tracking-wider"
+          >
+            All Tasks ( <span id="totalTasks">3</span>)
+          </h1>
+          <section>
+            <div class="actions flex gap-3">
+              <!-- List Icon -->
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="list"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-list-task text-[#fff] opacity-50 hover:opacity-100 cursor-pointer"
+                  viewBox="0 0 16 16"
+                  onclick=" isList = true;  toogleClasses();"
+                  
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"
+                  />
+                  <path
+                    d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"
+                  />
+                </svg>
+              </span>
+              <!-- Grid Icon -->
+              <span >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="grid"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-grid text-[#fff] opacity-50 hover:opacity-100 cursor-pointer"
+                  viewBox="0 0 16 16"
+                  onclick=" isList = false; toogleClasses();"
+                >
+                  <path
+                    d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <!-- Option list for sorting  -->
+
+            <!-- <div class="options"></div> -->
+          </section>
+
+          <section class="card-container w-[100%]">
+            <div
+              class="card-wrappe grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-4 gap-x-4"
+              id="card_wrapper"
+            >
+            <!--  Card  -->
+              <!-- <div
+                class="bg-[#141e33] min-h-[50px] h-56  py-2 px-3 flex flex-col gap-14 rounded-md border-2 border-dashed border-gray-500 border-opacity-50"
+              >
+
+              <h1 class="text-lg font-bold">Click here to add new task</h1>
+                    
+              </div> -->
+
+            </div>
+          </section>
+        </main>
+      </section>
+
+      <!-- Right Sedebar -->
+      <aside
+        class="min-h-screen w-2/12 fixed right-[4px] top-0 bg-[#141e33] py-8 hidden lg:block"
+      >
+        <div class="flex flex-col px-4 gap-y-6">
+          <div class="flex items-center gap-6 justify-center">
+            <span class="text-[#fff] opacity-50">Hi, User!</span>
+            <img src="/asset/profile.png" width="50px" alt="" />
+          </div>
+          <button
+            class="primary-btn rounded-md text-center bg-[#5b21b6] hover:bg-[#6b37bd] active:bg-[#a7f3d0]"
+            id="add_new_task_btn"
+            onclick="showFormHandler()"
+          >
+            Add New Task
+          </button>
+
+          <div>
+            <div
+              class="flex justify-between items-center text-[#fff] opacity-50"
+            >
+              <label for="file">All Tasks</label>
+              <span>3/10</span>
+            </div>
+            <progress
+              class="w-full h-[10px] rounded-md"
+              id="file"
+              value="32"
+              max="100"
+            >
+              32%
+            </progress>
+          </div>
+
+          <hr class="opacity-50" />
+
+          <div
+            class="bottom-section flex flex-col gap-y-2 text-[#fff] bottom-10 absolute w-[85%]"
+          >
+            <a
+              class="opacity-50 hover:opacity-100 cursor-pointer"
+              id="deleteAllTask"
+              >Delete All Data</a
+            >
+            <span class="bg-[#272e3f] rounded-md text-center py-2"
+              >Projected By <br />
+              <span class="italic text-lg tracking-wide">Majid Ali</span>
+            </span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- overlay and form section -->
+    <div
+      class="overlay absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-gray-400 opacity-30 hidden z-1"
+      id="overlay"
+    ></div>
+    <!--  form container -->
+    <section
+      class=" w-[300px] lg:w-[500px] mx-auto lg:min-h-screen absolute top-[-200%] left-[50%] translate-x-[-50%] sm:z-50 lg:z-10 block"
+      id="form_container"
+    >
+      <form
+        class="bg-[#0f1729] w-[100%] h-[100%] py-6 px-6 flex flex-col gap-4 rounded-md transition-all ease-in-out duration-1000"
+        id="form"
+      >
+        <div class="form-header flex items-center justify-between">
+          <h1 class=" text-sm lg:text-2xl font-semibold text-white">Add d task</h1>
+          <span class="close-btn text-white cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              class="bi bi-x w-10 lg:w-30 h-10 lg:h-30"
+              viewBox="0 0 16 16"
+              id="closeBtn"
+              onclick="closeFormHandler()"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </span>
+        </div>
+
+        <div class="form-body flex flex-col gap-y-4">
+          <div class="flex flex-col gap-y-2">
+            <label for="" class="text-[#fff] opacity-50"> Title </label>
+            <input
+              type="text"
+              id="title"
+              class="w-full bg-[#141e33] text-[#fff] font-normal outline-none border-none block text-sm py-2 px-2 rounded-md hover:outline-1 hover:outline-offset-0 hover:outline-[#6b37bd] focus:outline-2 focus:outline-offset-0 focus:outline-[#6b37bd] transition-all duration-500 ease-in-out"
+            />
+            <span id="error" class="error text-red-500 text-sm"></span>
+          </div>
+          <div class="flex flex-col gap-y-2">
+            <label for="" class="text-[#fff] opacity-50"> Date </label>
+            <input
+              type="date"
+              id="taskDate"
+              class="w-full bg-[#141e33] text-[#fff] font-normal outline-none border-none block text-sm py-2 px-2 rounded-md hover:outline-1 hover:outline-offset-0 hover:outline-[#6b37bd] focus:outline-2 focus:outline-offset-0 focus:outline-[#6b37bd] transition-all duration-500 ease-in-out"
+            />
+            <span id="error" class="error text-red-500 text-sm"></span>
+          </div>
+          <div class="flex flex-col gap-y-2">
+            <label for="" class="text-[#fff] opacity-50">
+              Description (Optional)
+            </label>
+            <textarea
+              name=""
+              id="taskDesc"
+              cols="30"
+              rows="5"
+              class="w-full bg-[#141e33] text-[#fff] font-normal outline-none border-none block text-sm py-2 px-2 rounded-md hover:outline-1 hover:outline-offset-0 hover:outline-[#6b37bd] focus:outline-2 focus:outline-offset-0 focus:outline-[#6b37bd] transition-all duration-500 ease-in-out"
+            ></textarea>
+            <span id="error" class="error text-red-500 text-sm"></span>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="primary-btn rounded-md text-center bg-[#5b21b6] hover:bg-[#6b37bd] active:bg-[#a7f3d0] w-full"
+        >
+          Add Task
+        </button>
+      </form>
+    </section>
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
